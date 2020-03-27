@@ -4,6 +4,7 @@ import { PatientService } from 'src/app/services/patient.service';
 import { Patient } from 'src/app/model/patient';
 import { MatDialog } from '@angular/material';
 import { DialogComponent } from 'src/app/shared/dialogs/dialog.component';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-patient-details',
@@ -16,7 +17,8 @@ export class PatientDetailsComponent implements OnInit {
     private activeRoute: ActivatedRoute,
     private service: PatientService,
     private router: Router,
-    private dialog: MatDialog) {
+    private dialog: MatDialog,
+    private location: Location) {
   }
 
   patient: Patient;
@@ -33,7 +35,7 @@ export class PatientDetailsComponent implements OnInit {
     }
 
     let id: string = this.activeRoute.snapshot.params['id'];
-    this.service.getData().subscribe(
+    this.service.getDataById(id).subscribe(
       response => {
         console.log(JSON.stringify(response));
         this.patient = response;
@@ -50,6 +52,10 @@ export class PatientDetailsComponent implements OnInit {
         let dialogRef = this.dialog.open(DialogComponent, this.dialogConfig);
       }
     );
+  }
+
+  onCancel() {
+    this.location.back();
   }
 
 }

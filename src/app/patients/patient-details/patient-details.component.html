@@ -1,15 +1,15 @@
 <section fxLayout="row wrap" fxLayoutAlign="center center">
   <mat-card fxFlex="500px" fxFlex.xs="100%">
-    <mat-card-title>Details for the clicked Patient</mat-card-title>
+    <mat-card-title>Details of Patient {{patient.patientName.firstName}}&nbsp;{{patient.patientName.lastName}}</mat-card-title>
     <mat-card-content>
       <div fxLayout="column wrap" fxLayoutGap="40px">
         <div fxLayout="row wrap" fxFlex>
           <div fxFlex><strong>Patient's Id:</strong></div>
-          <div fxFlex>{{patient?.id}}</div>
+          <div fxFlex>{{patient.id}}</div>
         </div>
         <div fxLayout="row wrap" fxFlex>
           <div fxFlex><strong>Patient's name:</strong></div>
-          <div fxFlex>{{patient?.patientName.firstName}}&nbsp;{{patient?.patientName.lastName}}</div>
+          <div fxFlex>{{patient.patientName.firstName}}&nbsp;{{patient.patientName.lastName}}</div>
         </div>
         <div fxLayout="row wrap" fxFlex>
           <div fxFlex><strong>Patient's Address:</strong></div>
@@ -22,32 +22,32 @@
 
         <div fxLayout="row wrap" fxFlex>
           <div fxFlex><strong>Gender:</strong></div>
-          <div fxFlex>{{patient?.gender}}</div>
+          <div fxFlex>{{patient.gender}}</div>
         </div>
 
         <div fxLayout="row wrap" fxFlex>
           <div fxFlex><strong>Date of birth:</strong></div>
-          <div fxFlex>{{patient?.dateOfBirth | date}}</div>
+          <div fxFlex>{{patient.dateOfBirth}}</div>
         </div>
 
         <div fxLayout="row wrap" fxFlex>
           <div fxFlex><strong>MailId:</strong></div>
-          <div fxFlex>{{patient?.mailId }}</div>
+          <div fxFlex>{{patient.mailId }}</div>
         </div>
 
         <div fxLayout="row wrap" fxFlex>
           <div fxFlex><strong>PhoneNo:</strong></div>
-          <div fxFlex>{{patient?.phone }}</div>
+          <div fxFlex>{{patient.phone }}</div>
         </div>
 
         <div fxLayout="row wrap" fxFlex>
           <div fxFlex><strong>MaritalStatus:</strong></div>
-          <div fxFlex>{{patient?.maritalStatus }}</div>
+          <div fxFlex>{{patient.maritalStatus }}</div>
         </div>
 
         <div fxLayout="row wrap" fxFlex>
           <div fxFlex><strong>MedicalHistory:</strong></div>
-          <div fxFlex>{{patient?.medHistory}}</div>
+          <div fxFlex>{{patient.medHistory}}</div>
         </div>
 
       </div>
