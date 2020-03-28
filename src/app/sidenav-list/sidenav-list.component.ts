@@ -1,4 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
+import { SharedService } from '../services/shared.service';
 
 @Component({
   selector: 'app-sidenav-list',
@@ -8,13 +10,21 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 export class SidenavListComponent implements OnInit {
   @Output() sidenavClose = new EventEmitter();
 
-  constructor() { }
+  constructor(
+    private router: Router,
+    private _sharedService: SharedService,
+  ) { }
 
   ngOnInit() {
   }
 
   public onSidenavClose = () => {
     this.sidenavClose.emit();
+  }
+
+  public logout() {
+    this._sharedService.emitChange(null);
+    this.router.navigate(['']);
   }
 
 }
