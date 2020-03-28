@@ -26,7 +26,6 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.logedUser = JSON.parse(localStorage.getItem("logedUser"));
-    alert(this.logedUser);
   }
 
   public onToggleSidenav = () => {

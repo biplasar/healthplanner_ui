@@ -22,7 +22,7 @@
             <mat-error *ngIf="hasError('lastName', 'maxlength')">You have more than 50 characters</mat-error>
           </mat-form-field>
         </div>
-        <br><br>
+        <br>
         <div flex fxLayoutGap="30px">
           <mat-label><b>Postal Address</b></mat-label><br>
           <mat-form-field>
@@ -57,7 +57,7 @@
             <mat-error *ngIf="hasError('zip', 'maxlength')">You have more than 6 characters</mat-error>
           </mat-form-field>
         </div>
-        <br><br>
+        <br>
         <div>
           <mat-label>Gender:&nbsp;</mat-label>
           <mat-radio-group formControlName="gender" id="gender">
@@ -66,17 +66,19 @@
               &nbsp;
             </mat-radio-button>
           </mat-radio-group>
+          <br>
+          <mat-hint align="left" class="mat-hint-style">Gender is required</mat-hint>
         </div>
-        <br><br>
         <div>
           <mat-form-field>
             <input matInput [matDatepicker]="picker" placeholder="Select Date of Birth" formControlName="dateOfBirth"
               id="dateOfBirth" readonly (click)="picker.open()">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
+            <mat-hint align="left">Date of Birth is required</mat-hint>
           </mat-form-field>
         </div>
-        <br><br>
+        <br>
         <div flex fxLayoutGap="30px">
           <mat-form-field>
             <input matInput type="text" placeholder="Email" formControlName="mailId" id="mailId">
@@ -91,7 +93,7 @@
             <mat-error *ngIf="hasError('phone', 'maxlength')">You have more than 10 characters</mat-error>
           </mat-form-field>
         </div>
-        <br><br>
+        <br>
         <div flex fxLayoutGap="30px">
           <mat-label>Marital Status:&nbsp;</mat-label>
           <mat-radio-group formControlName="maritalStatus" id="maritalStatus">
@@ -100,14 +102,18 @@
               &nbsp;
             </mat-radio-button>
           </mat-radio-group>
+          <br>
+          <mat-hint align="left" class="mat-hint-style">Marital Status is required</mat-hint>
         </div>
-        <br><br>
+        <br>
         <div flex fxLayoutGap="30px">
           <mat-label>Medical History:&nbsp;</mat-label>
           <ng-container *ngFor="let item of disease_type; let i = index">
             <mat-checkbox [checked]="item.checked" (change)="onChange($event)" [value]="item.name">{{item.name}}
             </mat-checkbox>
           </ng-container>
+          <br>
+          <mat-hint align="left" class="mat-hint-style">Medical History is required</mat-hint>
         </div>
 
       </mat-card-content>
