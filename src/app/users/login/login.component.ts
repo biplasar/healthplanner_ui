@@ -71,7 +71,6 @@ export class LoginComponent implements OnInit {
       else {
         this.dialogConfig.data = { 'title': "Error", 'message': 'Invalid User Name or Password' };
         let dialogRef = this.dialog.open(DialogComponent, this.dialogConfig);
-        this.router.navigate(['']);
       }
     }
   }

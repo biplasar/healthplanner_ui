@@ -1,6 +1,6 @@
 <section fxLayout="row wrap" fxLayoutAlign="center center">
   <mat-card fxFlex="500px" fxFlex.xs="100%">
-    <mat-card-title>Login</mat-card-title>
+    <mat-card-title fxLayoutAlign="center center">Login</mat-card-title>
 
     <form [formGroup]="loginForm" autocomplete="off" novalidate (ngSubmit)="login(loginForm.value)" fxLayout="column wrap"
       fxLayoutAlign="center center" fxLayoutGap="10px">
@@ -16,7 +16,7 @@
         </mat-form-field>
       </mat-card-content>
       
-      <mat-card-actions align="center">
+      <mat-card-actions style="text-align: center;">
         <button mat-raised-button color="primary" [disabled]="!loginForm.valid">Login</button>
         <button type="button" mat-raised-button color="warn" (click)="loginForm.reset()">Reset</button>
       </mat-card-actions>

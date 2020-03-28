@@ -10,7 +10,7 @@ import { SharedService } from '../services/shared.service';
 })
 export class HeaderComponent implements OnInit {
 
-  logedUser: User = null;
+  logedUser: User;
   @Output() public sidenavToggle = new EventEmitter();
 
   constructor(

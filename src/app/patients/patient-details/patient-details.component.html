@@ -1,59 +1,91 @@
 <section fxLayout="row wrap" fxLayoutAlign="center center">
-  <mat-card fxFlex="500px" fxFlex.xs="100%">
-    <mat-card-title>Details of Patient {{patient.patientName.firstName}}&nbsp;{{patient.patientName.lastName}}</mat-card-title>
-    <mat-card-content>
-      <div fxLayout="column wrap" fxLayoutGap="40px">
-        <div fxLayout="row wrap" fxFlex>
-          <div fxFlex><strong>Patient's Id:</strong></div>
-          <div fxFlex>{{patient.id}}</div>
+  <mat-card fxFlex="80%" fxFlex.xs="100%" style="border: 1;">
+
+    <mat-card-title fxLayoutAlign="center center">Registered Patient Details</mat-card-title>
+
+    <form [formGroup]="registerForm" autocomplete="off" novalidate>
+
+      <mat-card-content fxLayout="column wrap">
+
+        <div flex fxLayoutGap="30px">
+          <mat-label><b>Patient Name</b></mat-label><br>
+          <mat-form-field>
+            <input matInput type="text" placeholder="FirstName" formControlName="firstName" id="firstName">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput type="text" placeholder="LastName" formControlName="lastName" id="lastName">
+          </mat-form-field>
         </div>
-        <div fxLayout="row wrap" fxFlex>
-          <div fxFlex><strong>Patient's name:</strong></div>
-          <div fxFlex>{{patient.patientName.firstName}}&nbsp;{{patient.patientName.lastName}}</div>
+        <br>
+        <div flex fxLayoutGap="30px">
+          <mat-label><b>Postal Address</b></mat-label><br>
+          <mat-form-field>
+            <input matInput type="text" placeholder="Line1" formControlName="line1" id="line1">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput type="text" placeholder="Line2" formControlName="line2" id="line2">
+          </mat-form-field>
+          <br>
+          <mat-form-field>
+            <input matInput type="text" placeholder="City" formControlName="city" id="city">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput type="text" placeholder="State" formControlName="state" id="state">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput type="text" placeholder="Zip" formControlName="zip" id="zip">
+          </mat-form-field>
         </div>
-        <div fxLayout="row wrap" fxFlex>
-          <div fxFlex><strong>Patient's Address:</strong></div>
-          <div fxFlex>
-            {{patient.postalAddress.line1}}<br>
-            {{patient.postalAddress.line2}}<br>
-            {{patient.postalAddress.city}}, {{patient.postalAddress.state}}<br>
-            {{patient.postalAddress.zip}}</div>
+        <br>
+        <div>
+          <mat-label>Gender:&nbsp;</mat-label>
+          <mat-radio-group formControlName="gender" id="gender">
+            <mat-radio-button *ngFor="let item of genders" [checked]="item.checked" [value]="item.value">
+              {{item.option}}
+              &nbsp;
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <br>
+        <div>
+          <mat-form-field>
+            <input matInput type="text" placeholder="Date of Birth" formControlName="dateOfBirth"
+              id="dateOfBirth">
+          </mat-form-field>
+        </div>
+        <div flex fxLayoutGap="30px">
+          <mat-form-field>
+            <input matInput type="text" placeholder="Email" formControlName="mailId" id="mailId">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput type="text" placeholder="PhoneNo" formControlName="phone" id="phone">
+          </mat-form-field>
+        </div>
+        <div flex fxLayoutGap="30px">
+          <mat-label>Marital Status:&nbsp;</mat-label>
+          <mat-radio-group formControlName="maritalStatus" id="maritalStatus">
+            <mat-radio-button *ngFor="let item of marital_status" [checked]="item.checked" [value]="item.value">
+              {{item.option}}
+              &nbsp;
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <br>
+        <div flex fxLayoutGap="30px">
+          <mat-label>Medical History:&nbsp;</mat-label>
+          <ng-container *ngFor="let item of disease_type; let i = index">
+            <mat-checkbox [checked]="item.checked" [value]="item.name" disabled="true">{{item.name}}
+            </mat-checkbox>
+          </ng-container>
         </div>
 
-        <div fxLayout="row wrap" fxFlex>
-          <div fxFlex><strong>Gender:</strong></div>
-          <div fxFlex>{{patient.gender}}</div>
-        </div>
+      </mat-card-content>
 
-        <div fxLayout="row wrap" fxFlex>
-          <div fxFlex><strong>Date of birth:</strong></div>
-          <div fxFlex>{{patient.dateOfBirth}}</div>
-        </div>
+      <mat-card-actions style="text-align: center;">
+        <button type="button" mat-raised-button color="warn" (click)="onCancel()">Cancel</button>
+      </mat-card-actions>
 
-        <div fxLayout="row wrap" fxFlex>
-          <div fxFlex><strong>MailId:</strong></div>
-          <div fxFlex>{{patient.mailId }}</div>
-        </div>
+    </form>
 
-        <div fxLayout="row wrap" fxFlex>
-          <div fxFlex><strong>PhoneNo:</strong></div>
-          <div fxFlex>{{patient.phone }}</div>
-        </div>
-
-        <div fxLayout="row wrap" fxFlex>
-          <div fxFlex><strong>MaritalStatus:</strong></div>
-          <div fxFlex>{{patient.maritalStatus }}</div>
-        </div>
-
-        <div fxLayout="row wrap" fxFlex>
-          <div fxFlex><strong>MedicalHistory:</strong></div>
-          <div fxFlex>{{patient.medHistory}}</div>
-        </div>
-
-      </div>
-    </mat-card-content>
-    <mat-card-actions>
-      <button type="button" mat-raised-button color="warn" (click)="onCancel()">Cancel</button>
-    </mat-card-actions>
   </mat-card>
 </section>

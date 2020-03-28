@@ -1,7 +1,7 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormArray, FormBuilder } from '@angular/forms';
 import { Location } from '@angular/common';
-import { MatDialog, MatDialogRef } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router'
 import { DialogComponent } from '../../shared/dialogs/dialog.component';
 import { ErrorHandlerService } from '../../shared/dialogs/error-handler.service';
@@ -9,6 +9,7 @@ import { PatientService } from 'src/app/services/patient.service';
 import { Patient } from 'src/app/model/patient';
 import { PatientName } from 'src/app/model/patient_name';
 import { PostalAddress } from 'src/app/model/postal_address';
+import { GENDER, MARITAL_STATUS, DISEASE_TYPE } from 'src/app/constant';
 
 @Component({
   selector: 'app-patient-create',
@@ -19,23 +20,17 @@ export class PatientCreateComponent implements OnInit {
 
   public registerForm: FormGroup;
   private dialogConfig;
-  public genderList: [
-    { option: '1', value: 'Male' },
-    { option: '2', value: 'Female' }
-  ];
-  public maritalStatusList: [
-    { option: 'Married', value: '1' },
-    { option: 'Unmarried', value: '2' }
-  ];
-  public medHistoryList = ['None', 'Allergies', 'Anemia', 'Anxiety', 'Arthritis', 'Asthma', 'Cancer - Type', 'COPD (Emphysema)',
-    'Diabetes', 'Liver Disease', 'Osteoarthritis', 'Osteoporosis', 'Thyroid Disease'];
+  public genders = GENDER;
+  public marital_status = MARITAL_STATUS;
+  public disease_type = DISEASE_TYPE;
 
   constructor(
     private formBuilder: FormBuilder,
     private location: Location,
     private dialog: MatDialog,
     private router: Router,
-    private service: PatientService
+    private service: PatientService,
+    private fb: FormBuilder
   ) { }
 
   ngOnInit() {
@@ -52,8 +47,7 @@ export class PatientCreateComponent implements OnInit {
       dateOfBirth: new FormControl('', [Validators.required]),
       mailId: new FormControl('', [Validators.required, Validators.maxLength(60)]),
       phone: new FormControl('', [Validators.required, Validators.maxLength(60)]),
-      maritalStatus: new FormControl('', [Validators.required]),
-      medHistory: this.formBuilder.array([])
+      maritalStatus: new FormControl('', [Validators.required])
     });
 
     this.dialogConfig = {
@@ -93,7 +87,12 @@ export class PatientCreateComponent implements OnInit {
       patient.mailId = registerFormValue.mailId;
       patient.phone = registerFormValue.phone;
       patient.maritalStatus = registerFormValue.maritalStatus;
-      //console.log(JSON.stringify(patient));
+      patient.medHistory = [];
+      for (var i = 0; i < this.disease_type.length; i++) {
+        if (this.disease_type[i].checked)
+          patient.medHistory.push(this.disease_type[i].name);
+      }
+      console.log(JSON.stringify(patient));
       this.service.saveData(patient).subscribe(
         response => {
           alert(response);
@@ -117,13 +116,15 @@ export class PatientCreateComponent implements OnInit {
   }
 
   onChange(event) {
-    const medHistory = <FormArray>this.registerForm.get('medHistory') as FormArray;
-    if (event.checked) {
-      medHistory.push(new FormControl(event.source.value))
-    } else {
-      const i = medHistory.controls.findIndex(x => x.value === event.source.value);
-      medHistory.removeAt(i);
+    for (var i = 0; i < this.disease_type.length; i++) {
+      if (this.disease_type[i].name == event.source.value) {
+        if (event.checked)
+          this.disease_type[i].checked = true;
+        else
+          this.disease_type[i].checked = false;
+        break;
+      }
     }
-    //alert(JSON.stringify(medHistory));
   }
+
 }

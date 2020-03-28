@@ -7,14 +7,14 @@
     <a matline>Patients</a>
   </mat-list-item>
   <mat-menu #menu="matMenu">
-    <button mat-menu-item routerLink="../patient/create">GetPatient/GetAllPatients</button>
-    <button mat-menu-item routerLink="../patient/patients">Register Patient</button>
+    <button mat-menu-item routerLink="/patient/patients">GetPatient/GetAllPatients</button>
+    <button mat-menu-item routerLink="/patient/create">Register Patient</button>
 
   </mat-menu>
   <a mat-list-item routerLink="/login" (click)="onSidenavClose()">
     <mat-icon>logout</mat-icon><span class="nav-caption">Logout</span>
   </a>
   <a mat-list-item routerLink="" (click)="onSidenavClose()">
-    <mat-icon>close</mat-icon><span class="nav-caption">Close</span>  
-  </a>  
+    <mat-icon>close</mat-icon><span class="nav-caption">Close</span>
+  </a>
 </mat-nav-list>

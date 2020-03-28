@@ -1,9 +1,3 @@
-<div>
-    <ng-container *ngIf="logedUser != null">
-        <a mat-button routerLink="/home">Home</a>
-        <a mat-button routerLink="/login" type="submit">Logout</a>
-    </ng-container>
-</div>
 <div fxLayout fxLayout.lt-md="column wrap" fxLayoutAlign="center center" fxLayoutGap.gt-sm="250px"
     fxLayoutGap.lt.md="20px">
     <mat-form-field>
@@ -14,10 +8,10 @@
     </div-->
 </div>
 <table mat-table [dataSource]="dataSource" matSort >
-    <ng-container matColumnDef="id">
+    <!--ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef mat-sort-header width="150px">ID</th>
         <td mat-cell *matCellDef="let patient">{{patient.id }}</td>
-    </ng-container>
+    </ng-container-->
     <ng-container matColumnDef="patientName">
         <th mat-header-cell *matHeaderCellDef mat-sort-header width="200px">PatientName</th>
         <td mat-cell *matCellDef="let patient">{{patient.patientName.firstName}}&nbsp;{{patient.patientName.lastName}}
@@ -31,6 +25,10 @@
             {{patient.postalAddress.city}}, {{patient.postalAddress.state}}<br>
             {{patient.postalAddress.zip}}
         </td>
+    </ng-container>
+    <ng-container matColumnDef="gender">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header width="100px">Gender</th>
+        <td mat-cell *matCellDef="let patient">{{patient.gender}}</td>
     </ng-container>
     <ng-container matColumnDef="dateOfBirth">
         <th mat-header-cell *matHeaderCellDef mat-sort-header width="100px">Date of Birth</th>

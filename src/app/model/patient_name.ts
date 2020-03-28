@@ -4,4 +4,3 @@ export class PatientName {
     lastName: String
 
 }
-    

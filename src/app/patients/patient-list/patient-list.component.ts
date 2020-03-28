@@ -2,8 +2,6 @@ import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { PatientService } from '../../services/patient.service';
 import { Patient } from '../../model/patient';
 import { MatTableDataSource, MatSort, MatPaginator, MatDialog } from '@angular/material';
-import { SharedService } from '../../services/shared.service';
-import { User } from '../../model/user';
 import { Router } from '@angular/router';
 import { DialogComponent } from 'src/app/shared/dialogs/dialog.component';
 
@@ -16,18 +14,12 @@ export class PatientListComponent implements OnInit, AfterViewInit {
 
   constructor(
     private service: PatientService,
-    private _sharedService: SharedService,
     private router: Router,
     private dialog: MatDialog) {
-    _sharedService.changeEmitted$.subscribe(
-      user => {
-        this.logedUser = user;
-      });
   }
 
-  logedUser: User = null;
   public dialogConfig;
-  public displayedColumns = ['id', 'patientName', 'postalAddress', 'dateOfBirth', 'mailId', 'phone', 'maritalStatus', 'medicalHistory',
+  public displayedColumns = ['patientName', 'postalAddress', 'gender', 'dateOfBirth', 'mailId', 'phone', 'maritalStatus', 'medicalHistory',
     'details', 'update', 'delete'];
   public dataSource = new MatTableDataSource<Patient>();
 

@@ -61,10 +61,10 @@
         <div>
           <mat-label>Gender:&nbsp;</mat-label>
           <mat-radio-group formControlName="gender" id="gender">
-            <!--mat-radio-button *ngFor="let item of genderList" [value]="item.value">
-              {{item.option}}</!--mat-radio-button-->
-            <mat-radio-button value="Male">Male</mat-radio-button>&nbsp;&nbsp;
-            <mat-radio-button value="Female">Female</mat-radio-button>
+            <mat-radio-button *ngFor="let item of genders" [checked]="item.checked" [value]="item.value">
+              {{item.option}}
+              &nbsp;
+            </mat-radio-button>
           </mat-radio-group>
         </div>
         <br><br>
@@ -95,26 +95,24 @@
         <div flex fxLayoutGap="30px">
           <mat-label>Marital Status:&nbsp;</mat-label>
           <mat-radio-group formControlName="maritalStatus" id="maritalStatus">
-            <!--mat-radio-button *ngFor="let item of maritalStatusList" [value]="item.value">
+            <mat-radio-button *ngFor="let item of marital_status" [checked]="item.checked" [value]="item.value">
               {{item.option}}
-            </mat-radio-button-->
-            <mat-radio-button value="Married">Married</mat-radio-button>&nbsp;&nbsp;
-            <mat-radio-button value="Unmarried">Unmarried</mat-radio-button>
+              &nbsp;
+            </mat-radio-button>
           </mat-radio-group>
         </div>
         <br><br>
         <div flex fxLayoutGap="30px">
           <mat-label>Medical History:&nbsp;</mat-label>
-          <ng-container *ngFor="let item of medHistoryList; let i = index">
-            {{medHist}}
-            <mat-checkbox class="example-margin" (change)="onChange($event)" [value]="medHistory">{{item}}
+          <ng-container *ngFor="let item of disease_type; let i = index">
+            <mat-checkbox [checked]="item.checked" (change)="onChange($event)" [value]="item.name">{{item.name}}
             </mat-checkbox>
           </ng-container>
         </div>
 
       </mat-card-content>
 
-      <mat-card-actions align="center">
+      <mat-card-actions style="text-align: center;">
         <button mat-raised-button color="primary" [disabled]="!registerForm.valid">Register</button>
         <button type="button" mat-raised-button color="warn" (click)="loginForm.reset()">Reset</button>
       </mat-card-actions>

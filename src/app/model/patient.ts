@@ -11,6 +11,5 @@ export class Patient {
     mailId: String;
     phone: String;
     maritalStatus: String;
-    medicalHistory: String;
     medHistory: String[];
 }
