@@ -26,6 +26,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.logedUser = JSON.parse(localStorage.getItem("logedUser"));
+    alert(this.logedUser);
   }
 
   public onToggleSidenav = () => {
@@ -34,6 +35,7 @@ export class HeaderComponent implements OnInit {
 
   public logout() {
     this._sharedService.emitChange(null);
+    localStorage.removeItem("logedUser");
     this.router.navigate(['']);
   }
 }
