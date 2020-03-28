@@ -1,5 +1,5 @@
 <section fxLayout="row wrap" fxLayoutAlign="center center">
-  <mat-card fxFlex="80%" fxFlex.xs="100%" style="border: 1;">
+  <mat-card fxFlex="87%" fxFlex.xs="100%" style="border: 1;">
 
     <mat-card-title fxLayoutAlign="center center">Registered Patient Details</mat-card-title>
 
@@ -36,8 +36,8 @@
             <input matInput type="text" placeholder="Zip" formControlName="zip" id="zip">
           </mat-form-field>
         </div>
-        <div>
-          <mat-label>Gender:&nbsp;</mat-label>
+        <div flex fxLayoutGap="30px">
+          <mat-label>Gender</mat-label>
           <mat-radio-group formControlName="gender" id="gender">
             <mat-radio-button *ngFor="let item of genders" [checked]="item.checked" [value]="item.value">
               {{item.option}}
@@ -61,7 +61,7 @@
           </mat-form-field>
         </div>
         <div flex fxLayoutGap="30px">
-          <mat-label>Marital Status:&nbsp;</mat-label>
+          <mat-label>Marital Status</mat-label>
           <mat-radio-group formControlName="maritalStatus" id="maritalStatus">
             <mat-radio-button *ngFor="let item of marital_status" [checked]="item.checked" [value]="item.value">
               {{item.option}}
@@ -71,7 +71,7 @@
         </div>
         <br>
         <div flex fxLayoutGap="30px">
-          <mat-label>Medical History:&nbsp;</mat-label>
+          <mat-label>Medical History</mat-label>
           <ng-container *ngFor="let item of disease_type; let i = index">
             <mat-checkbox [checked]="item.checked" [value]="item.name" disabled="true">{{item.name}}
             </mat-checkbox>

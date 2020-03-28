@@ -1,5 +1,5 @@
 mat-form-field {
-  width: 400px;
+  width: 350px;
 }
 
 mat-card-title {
@@ -10,4 +10,5 @@ mat-card-title {
   font-size: 75%;
   font-weight: 400;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+  color: rgba(0, 0, 0, 0.54);
 }
