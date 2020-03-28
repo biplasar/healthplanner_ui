@@ -1,5 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, AfterViewChecked, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { User } from '../model/user';
 import { SharedService } from '../services/shared.service';
 import { Router } from '@angular/router';
@@ -33,8 +32,11 @@ export class HeaderComponent implements OnInit {
   }
 
   public logout() {
-    this._sharedService.emitChange(null);
-    localStorage.removeItem("logedUser");
-    this.router.navigate(['']);
+    if (confirm("Do you want to Logout ?")) {
+      localStorage.removeItem("logedUser");
+      this._sharedService.emitChange(null);
+      this.router.navigate(['']);
+    } else
+      return false;
   }
 }

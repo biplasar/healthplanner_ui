@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { PatientService } from '../../services/patient.service';
 import { Patient } from '../../model/patient';
 import { MatTableDataSource, MatSort, MatPaginator, MatDialog } from '@angular/material';
@@ -10,7 +10,7 @@ import { DialogComponent } from 'src/app/shared/dialogs/dialog.component';
   templateUrl: './patient-list.component.html',
   styles: []
 })
-export class PatientListComponent implements OnInit, AfterViewInit {
+export class PatientListComponent implements OnInit {
 
   constructor(
     private service: PatientService,
@@ -32,6 +32,18 @@ export class PatientListComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit() {
+
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    this.dataSource.filterPredicate = (data, filter: string) => {
+      const accumulator = (currentTerm, key) => {
+        return this.nestedFilterCheck(currentTerm, data, key);
+      };
+      const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
+      // Transform the filter by converting it to lowercase and removing whitespace.
+      const transformedFilter = filter.trim().toLowerCase();
+      return dataStr.indexOf(transformedFilter) !== -1;
+    }
 
     this.dialogConfig = {
       height: '200px',
@@ -61,15 +73,12 @@ export class PatientListComponent implements OnInit, AfterViewInit {
     );
   }
 
-  ngAfterViewInit(): void {
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
-  }
-
-  public doFilter = (value: string) => {
-    if (value.length < 3)
-      return;
-    this.dataSource.filter = value.trim().toLocaleLowerCase();
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    // console.log(this.dataSource.filter);
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
   pageChange(event: any) {
@@ -89,8 +98,23 @@ export class PatientListComponent implements OnInit, AfterViewInit {
   }
 
   public redirectToDelete = (id: string) => {
-    let url: string = `/patient/delete/${id}`;
-    this.router.navigate([url]);
+    if (confirm("Do you want to Logout ?")) {
+      let url: string = `/patient/delete/${id}`;
+      //this.router.navigate([url]);
+    } else
+      return false;
   }
 
+  nestedFilterCheck(search, data, key) {
+    if (typeof data[key] === 'object') {
+      for (const k in data[key]) {
+        if (data[key][k] !== null) {
+          search = this.nestedFilterCheck(search, data[key], k);
+        }
+      }
+    } else {
+      search += data[key];
+    }
+    return search;
+  }
 }

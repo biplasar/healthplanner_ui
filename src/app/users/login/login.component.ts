@@ -1,6 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Location } from '@angular/common';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { Router } from '@angular/router'
 import { User } from '../../model/user';
@@ -21,15 +20,15 @@ export class LoginComponent implements OnInit {
   @Output() updateView = new EventEmitter();
 
   constructor(
-    private location: Location,
     private dialog: MatDialog,
     private router: Router,
     private _sharedService: SharedService,
-  ) { }
+  ) {
+    localStorage.removeItem('logedUser');
+    this._sharedService.emitChange(null);
+  }
 
   ngOnInit() {
-    //localStorage.removeItem('logedUser');
-    //this._sharedService.emitChange(null);
 
     this.loginForm = new FormGroup({
       username: new FormControl('', [Validators.required]),

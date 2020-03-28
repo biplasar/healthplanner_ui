@@ -23,9 +23,12 @@ export class SidenavListComponent implements OnInit {
   }
 
   public logout() {
-    this._sharedService.emitChange(null);
-    localStorage.removeItem("logedUser");
-    this.router.navigate(['']);
+    if (confirm("Do you want to Logout ?")) {
+      localStorage.removeItem("logedUser");
+      this._sharedService.emitChange(null);
+      this.router.navigate(['']);
+    } else
+      return false;
   }
 
 }

@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators, FormArray, FormBuilder } from '@angular/forms';
-import { Location } from '@angular/common';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
-import { Router } from '@angular/router'
 import { DialogComponent } from '../../shared/dialogs/dialog.component';
 import { ErrorHandlerService } from '../../shared/dialogs/error-handler.service';
 import { PatientService } from 'src/app/services/patient.service';
@@ -25,12 +23,8 @@ export class PatientCreateComponent implements OnInit {
   public disease_type = DISEASE_TYPE;
 
   constructor(
-    private formBuilder: FormBuilder,
-    private location: Location,
     private dialog: MatDialog,
-    private router: Router,
     private service: PatientService,
-    private fb: FormBuilder
   ) { }
 
   ngOnInit() {
@@ -92,7 +86,7 @@ export class PatientCreateComponent implements OnInit {
         if (this.disease_type[i].checked)
           patient.medHistory.push(this.disease_type[i].name);
       }
-      console.log(JSON.stringify(patient));
+      //console.log(JSON.stringify(patient));
       this.service.saveData(patient).subscribe(
         response => {
           alert(response);

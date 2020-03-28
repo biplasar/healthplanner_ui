@@ -1,14 +1,12 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormControl, FormGroup, Validators, FormArray, FormBuilder } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Location } from '@angular/common';
-import { MatDialog, MatDialogRef } from '@angular/material';
-import { ActivatedRoute, Router } from '@angular/router';
+import { MatDialog } from '@angular/material';
+import { ActivatedRoute } from '@angular/router';
 import { DialogComponent } from '../../shared/dialogs/dialog.component';
 import { ErrorHandlerService } from '../../shared/dialogs/error-handler.service';
 import { PatientService } from 'src/app/services/patient.service';
 import { Patient } from 'src/app/model/patient';
-import { PatientName } from 'src/app/model/patient_name';
-import { PostalAddress } from 'src/app/model/postal_address';
 import { GENDER, MARITAL_STATUS, DISEASE_TYPE } from 'src/app/constant';
 
 @Component({
@@ -19,10 +17,8 @@ import { GENDER, MARITAL_STATUS, DISEASE_TYPE } from 'src/app/constant';
 export class PatientDetailsComponent implements OnInit {
 
   constructor(
-    private formBuilder: FormBuilder,
     private activeRoute: ActivatedRoute,
     private service: PatientService,
-    private router: Router,
     private dialog: MatDialog,
     private location: Location) {
   }
