@@ -24,7 +24,10 @@ export class PatientService {
   }
 
   saveData(patient: Patient): Observable<any> {
-    console.log(`${API_URL}/user/create`);
     return this.http.post(`${API_URL}/user/create`, patient);
+  }
+
+  updateData(id: String, patient: Patient): Observable<any> {
+    return this.http.put(`${API_URL}/user/update/${id}`, patient);
   }
 }

@@ -62,7 +62,7 @@
     <ng-container matColumnDef="update">
         <th mat-header-cell *matHeaderCellDef width="100px">Update</th>
         <td mat-cell *matCellDef="let patient">
-            <button mat-icon-button color="accent">
+            <button mat-icon-button color="accent" (click)="redirectToUpdate(patient.id)">
                 <mat-icon class="mat-18">system_update</mat-icon>
             </button>
         </td>
