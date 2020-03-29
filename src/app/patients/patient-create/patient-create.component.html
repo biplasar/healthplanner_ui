@@ -61,7 +61,7 @@
         <div flex fxLayoutGap="30px">
           <mat-label>Gender</mat-label>
           <mat-radio-group formControlName="gender" id="gender">
-            <mat-radio-button *ngFor="let item of genders" [checked]="item.checked" [value]="item.value">
+            <mat-radio-button *ngFor="let item of genders" [value]="item.value">
               {{item.option}}
               &nbsp;
             </mat-radio-button>
@@ -97,7 +97,7 @@
         <div flex fxLayoutGap="30px">
           <mat-label>Marital Status</mat-label>
           <mat-radio-group formControlName="maritalStatus" id="maritalStatus">
-            <mat-radio-button *ngFor="let item of marital_status" [checked]="item.checked" [value]="item.value">
+            <mat-radio-button *ngFor="let item of marital_status" [value]="item.value">
               {{item.option}}
               &nbsp;
             </mat-radio-button>
@@ -109,7 +109,7 @@
         <div flex fxLayoutGap="30px">
           <mat-label>Medical History</mat-label>
           <ng-container *ngFor="let item of disease_type; let i = index">
-            <mat-checkbox [checked]="item.checked" (change)="onChange($event)" [value]="item.name">{{item.name}}
+            <mat-checkbox (change)="onChange($event)" [value]="item.name">{{item.name}}
             </mat-checkbox>
           </ng-container>
           <br>
