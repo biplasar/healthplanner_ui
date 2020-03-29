@@ -44,7 +44,7 @@ export class HeaderComponent implements OnInit {
   }
 
   public logout() {
-    this.dialogConfig.data = { 'title': "Confirm Action", 'option': 'yes/no', 'message': 'Do you want to Logout ?' };
+    this.dialogConfig.data = { 'title': "Confirm Action", 'option': 'yes/no', 'message': 'Do you want to logout ?' };
     let dialogRef = this.dialog.open(DialogComponent, this.dialogConfig);
     dialogRef.afterClosed().subscribe(
       dialogResult => {
