@@ -89,8 +89,8 @@ export class PatientDetailsComponent implements OnInit {
           errorMsg = error.error;
         else
           errorMsg = error.message;
-        this.dialogConfig.data = { 'title': "Error", 'message': errorMsg };
-        let dialogRef = this.dialog.open(DialogComponent, this.dialogConfig);
+        this.dialogConfig.data = { 'title': "Error", 'option': 'close', 'message': errorMsg };
+        this.dialog.open(DialogComponent, this.dialogConfig);
       }
     );
   }

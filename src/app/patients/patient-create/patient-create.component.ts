@@ -86,10 +86,11 @@ export class PatientCreateComponent implements OnInit {
         if (this.disease_type[i].checked)
           patient.medHistory.push(this.disease_type[i].name);
       }
-      //console.log(JSON.stringify(patient));
       this.service.saveData(patient).subscribe(
         response => {
-          alert(response);
+          this.dialogConfig.data = { 'title': "Alert", 'option': 'close', 'message': 'Successfully added the reord ' };
+          this.dialog.open(DialogComponent, this.dialogConfig);
+          this.registerForm.reset();
         },
         error => {
           let errorMsg = '';
@@ -99,13 +100,13 @@ export class PatientCreateComponent implements OnInit {
             errorMsg = error.error;
           else
             errorMsg = error.message;
-          this.dialogConfig.data = { 'title': "Error", 'message': errorMsg };
-          let dialogRef = this.dialog.open(DialogComponent, this.dialogConfig);
+          this.dialogConfig.data = { 'title': "Error", 'option': 'close', 'message': errorMsg };
+          this.dialog.open(DialogComponent, this.dialogConfig);
         }
       );
     } else {
-      this.dialogConfig.data = { 'title': "Error", 'message': 'Some Input data are invalid' };
-      let dialogRef = this.dialog.open(DialogComponent, this.dialogConfig);
+      this.dialogConfig.data = { 'title': "Error", 'option': 'close', 'message': 'Some Input data are invalid' };
+      this.dialog.open(DialogComponent, this.dialogConfig);
     }
   }
 

@@ -92,7 +92,7 @@ export class PatientUpdateComponent implements OnInit {
           errorMsg = error.error;
         else
           errorMsg = error.message;
-        this.dialogConfig.data = { 'title': "Error", 'message': errorMsg };
+        this.dialogConfig.data = { 'title': "Error", 'option': 'close', 'message': errorMsg };
         let dialogRef = this.dialog.open(DialogComponent, this.dialogConfig);
       }
     );
@@ -128,10 +128,10 @@ export class PatientUpdateComponent implements OnInit {
         if (this.disease_type[i].checked)
           patient.medHistory.push(this.disease_type[i].name);
       }
-      //console.log(JSON.stringify(patient));
       this.service.updateData(this.patientId, patient).subscribe(
         response => {
-          alert(response);
+          this.dialogConfig.data = { 'title': "Alert", 'option': 'close', 'message': 'Successfully updated the reord ' + this.patientId};
+          this.dialog.open(DialogComponent, this.dialogConfig);
         },
         error => {
           let errorMsg = '';
@@ -141,12 +141,12 @@ export class PatientUpdateComponent implements OnInit {
             errorMsg = error.error;
           else
             errorMsg = error.message;
-          this.dialogConfig.data = { 'title': "Error", 'message': errorMsg };
-          let dialogRef = this.dialog.open(DialogComponent, this.dialogConfig);
+          this.dialogConfig.data = { 'title': "Error", 'option': 'close', 'message': errorMsg };
+          this.dialog.open(DialogComponent, this.dialogConfig);
         }
       );
     } else {
-      this.dialogConfig.data = { 'title': "Error", 'message': 'Some Input data are invalid' };
+      this.dialogConfig.data = { 'title': "Error", 'option': 'close', 'message': 'Some Input data are invalid' };
       let dialogRef = this.dialog.open(DialogComponent, this.dialogConfig);
     }
   }

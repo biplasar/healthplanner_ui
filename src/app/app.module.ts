@@ -11,7 +11,6 @@ import { HeaderComponent } from './header/header.component';
 import { SidenavListComponent } from './sidenav-list/sidenav-list.component';
 import { HttpClientModule } from '@angular/common/http';
 
-
 import { SharedService } from './services/shared.service';
 
 @NgModule({

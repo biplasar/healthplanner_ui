@@ -13,13 +13,13 @@ import { DialogComponent } from './dialogs/dialog.component';
   exports: [
     MaterialModule,
     FlexLayoutModule,
-    DialogComponent
+    DialogComponent,
   ],
   declarations: [
-    DialogComponent
+    DialogComponent,
   ],
   entryComponents: [
-    DialogComponent
+    DialogComponent,
   ]
 })
 export class SharedModule { }
