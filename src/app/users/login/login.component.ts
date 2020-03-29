@@ -4,7 +4,7 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 import { Router } from '@angular/router'
 import { User } from '../../model/user';
 import { SharedService } from '../../services/shared.service';
-import { DialogComponent } from '../../shared/dialogs/dialog.component';
+import { MessageBox, MessageBoxButton } from 'src/app/shared/message-box';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +14,6 @@ import { DialogComponent } from '../../shared/dialogs/dialog.component';
 export class LoginComponent implements OnInit {
 
   public loginForm: FormGroup;
-  private dialogConfig;
   logedUser: User = null;
   @Output() updateView = new EventEmitter();
 
@@ -34,13 +33,6 @@ export class LoginComponent implements OnInit {
       password: new FormControl('', [Validators.required])
     });
 
-    this.dialogConfig = {
-      height: '200px',
-      width: '400px',
-      disableClose: true,
-      panelClass: 'custom-modalbox',
-      data: {}
-    }
   }
 
   public hasError(controlName: string, errorName: string) {
@@ -54,21 +46,18 @@ export class LoginComponent implements OnInit {
   public login(loginFormValue) {
     if (this.loginForm.valid) {
       if (loginFormValue.username === "admin" && loginFormValue.password === "admin") {
-        this.dialogConfig.data = { 'title': "Alert", 'option': 'close', 'message': 'Login Successfully' };
-        let dialogRef = this.dialog.open(DialogComponent, this.dialogConfig);
-        dialogRef.afterClosed().subscribe(result => {
-          this.logedUser = new User();
-          this.logedUser.username = loginFormValue.username;
-          this.logedUser.password = loginFormValue.password;
-          localStorage.setItem('logedUser', JSON.stringify(this.logedUser));
-          this._sharedService.emitChange(this.logedUser);
-          this.router.navigate(['/home']);
-        });
+        MessageBox.show(this.dialog, "Alert", 'Login Successfully', MessageBoxButton.Ok, "350px")
+          .subscribe(result => {
+            this.logedUser = new User();
+            this.logedUser.username = loginFormValue.username;
+            this.logedUser.password = loginFormValue.password;
+            localStorage.setItem('logedUser', JSON.stringify(this.logedUser));
+            this._sharedService.emitChange(this.logedUser);
+            this.router.navigate(['/home']);
+          });
       }
-      else {
-        this.dialogConfig.data = { 'title': "Error", 'option': 'close', 'message': 'Invalid User Name or Password' };
-        let dialogRef = this.dialog.open(DialogComponent, this.dialogConfig);
-      }
+      else
+        MessageBox.show(this.dialog, "Error", 'Invalid User Name or Password', MessageBoxButton.Ok, "350px");
     }
   }
 

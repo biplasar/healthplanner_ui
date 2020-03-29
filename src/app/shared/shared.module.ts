@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../material/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { DialogComponent } from './dialogs/dialog.component';
+import { DialogComponent } from './dialog/dialog.component';
 
 @NgModule({
   imports: [
@@ -16,7 +16,7 @@ import { DialogComponent } from './dialogs/dialog.component';
     DialogComponent,
   ],
   declarations: [
-    DialogComponent,
+    DialogComponent
   ],
   entryComponents: [
     DialogComponent,

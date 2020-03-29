@@ -3,7 +3,7 @@ import { User } from '../model/user';
 import { SharedService } from '../services/shared.service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
-import { DialogComponent } from '../shared/dialogs/dialog.component';
+import { MessageBox, MessageBoxButton } from '../shared/message-box';
 
 @Component({
   selector: 'app-header',
@@ -14,7 +14,6 @@ export class HeaderComponent implements OnInit {
 
   logedUser: User;
   @Output() public sidenavToggle = new EventEmitter();
-  private dialogConfig;
 
   constructor(
     private router: Router,
@@ -29,14 +28,6 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.logedUser = JSON.parse(localStorage.getItem("logedUser"));
-
-    this.dialogConfig = {
-      height: '200px',
-      width: '400px',
-      disableClose: true,
-      panelClass: 'custom-modalbox',
-      data: {}
-    }
   }
 
   public onToggleSidenav = () => {
@@ -44,11 +35,10 @@ export class HeaderComponent implements OnInit {
   }
 
   public logout() {
-    this.dialogConfig.data = { 'title': "Confirm Action", 'option': 'yes/no', 'message': 'Do you want to logout ?' };
-    let dialogRef = this.dialog.open(DialogComponent, this.dialogConfig);
-    dialogRef.afterClosed().subscribe(
-      dialogResult => {
-        if (dialogResult == true) {
+    MessageBox.show(this.dialog, "Confirm Action", 'Do you want to logout ?', MessageBoxButton.YesNo, "350px")
+      .subscribe(result => {
+        const dialogResult = (result === undefined) ? "none" : result.result;
+        if (dialogResult == "yes") {
           localStorage.removeItem("logedUser");
           this._sharedService.emitChange(null);
           this.router.navigate(['']);

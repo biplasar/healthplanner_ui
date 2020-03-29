@@ -3,11 +3,10 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Location } from '@angular/common';
 import { MatDialog } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
-import { DialogComponent } from '../../shared/dialogs/dialog.component';
-import { ErrorHandlerService } from '../../shared/dialogs/error-handler.service';
 import { PatientService } from 'src/app/services/patient.service';
 import { Patient } from 'src/app/model/patient';
 import { GENDER, MARITAL_STATUS, DISEASE_TYPE } from 'src/app/constant';
+import { MessageBox, MessageBoxButton } from 'src/app/shared/message-box';
 
 @Component({
   selector: 'app-patient-details',
@@ -25,7 +24,6 @@ export class PatientDetailsComponent implements OnInit {
 
   patient: Patient;
   public registerForm: FormGroup;
-  private dialogConfig;
   public genders = GENDER;
   public marital_status = MARITAL_STATUS;
   public disease_type = DISEASE_TYPE;
@@ -47,14 +45,6 @@ export class PatientDetailsComponent implements OnInit {
       maritalStatus: new FormControl('')
     });
     this.registerForm.disable();
-
-    this.dialogConfig = {
-      height: '200px',
-      width: '400px',
-      disableClose: true,
-      panelClass: 'custom-modalbox',
-      data: {}
-    }
 
     let id: string = this.activeRoute.snapshot.params['id'];
     this.service.getDataById(id).subscribe(
@@ -89,8 +79,7 @@ export class PatientDetailsComponent implements OnInit {
           errorMsg = error.error;
         else
           errorMsg = error.message;
-        this.dialogConfig.data = { 'title': "Error", 'option': 'close', 'message': errorMsg };
-        this.dialog.open(DialogComponent, this.dialogConfig);
+        MessageBox.show(this.dialog, "Error", errorMsg, MessageBoxButton.Ok, "350px");
       }
     );
   }

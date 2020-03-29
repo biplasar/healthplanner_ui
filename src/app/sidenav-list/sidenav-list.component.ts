@@ -1,8 +1,8 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { SharedService } from '../services/shared.service';
-import { DialogComponent } from '../shared/dialogs/dialog.component';
 import { MatDialog } from '@angular/material';
+import { MessageBox, MessageBoxButton } from '../shared/message-box';
 
 @Component({
   selector: 'app-sidenav-list',
@@ -12,7 +12,6 @@ import { MatDialog } from '@angular/material';
 export class SidenavListComponent implements OnInit {
 
   @Output() sidenavClose = new EventEmitter();
-  private dialogConfig;
 
   constructor(
     private router: Router,
@@ -21,13 +20,6 @@ export class SidenavListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.dialogConfig = {
-      height: '200px',
-      width: '400px',
-      disableClose: true,
-      panelClass: 'custom-modalbox',
-      data: {}
-    }
   }
 
   public onSidenavClose = () => {
@@ -35,15 +27,15 @@ export class SidenavListComponent implements OnInit {
   }
 
   public logout() {
-    this.dialogConfig.data = { 'title': "Confirm Action", 'option': 'yes/no', 'message': 'Do you want to logout ?' };
-    let dialogRef = this.dialog.open(DialogComponent, this.dialogConfig);
-    dialogRef.afterClosed().subscribe(dialogResult => {
-      if (dialogResult == true) {
-        localStorage.removeItem("logedUser");
-        this._sharedService.emitChange(null);
-        this.router.navigate(['']);
-      }
-    });
+    MessageBox.show(this.dialog, "Confirm Action", 'Do you want to logout ?', MessageBoxButton.YesNo, "350px")
+      .subscribe(result => {
+        const dialogResult = (result === undefined) ? "none" : result.result;
+        if (dialogResult == "yes") {
+          localStorage.removeItem("logedUser");
+          this._sharedService.emitChange(null);
+          this.router.navigate(['']);
+        }
+      });
   }
 
 }

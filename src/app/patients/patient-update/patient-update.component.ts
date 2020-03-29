@@ -2,14 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { ActivatedRoute } from '@angular/router'
-import { DialogComponent } from '../../shared/dialogs/dialog.component';
 import { Location } from '@angular/common';
-import { ErrorHandlerService } from '../../shared/dialogs/error-handler.service';
 import { PatientService } from 'src/app/services/patient.service';
 import { Patient } from 'src/app/model/patient';
 import { PatientName } from 'src/app/model/patient_name';
 import { PostalAddress } from 'src/app/model/postal_address';
 import { GENDER, MARITAL_STATUS, DISEASE_TYPE } from 'src/app/constant';
+import { MessageBox, MessageBoxButton } from 'src/app/shared/message-box';
 
 @Component({
   selector: 'app-patient-update',
@@ -21,7 +20,6 @@ export class PatientUpdateComponent implements OnInit {
   public patientId: String;
   patient: Patient;
   public registerForm: FormGroup;
-  private dialogConfig;
   public genders = GENDER;
   public marital_status = MARITAL_STATUS;
   public disease_type = DISEASE_TYPE;
@@ -49,14 +47,6 @@ export class PatientUpdateComponent implements OnInit {
       phone: new FormControl(''),
       maritalStatus: new FormControl('')
     });
-
-    this.dialogConfig = {
-      height: '200px',
-      width: '400px',
-      disableClose: true,
-      panelClass: 'custom-modalbox',
-      data: {}
-    }
 
     let id: string = this.activeRoute.snapshot.params['id'];
     this.patientId = id;
@@ -92,8 +82,7 @@ export class PatientUpdateComponent implements OnInit {
           errorMsg = error.error;
         else
           errorMsg = error.message;
-        this.dialogConfig.data = { 'title': "Error", 'option': 'close', 'message': errorMsg };
-        let dialogRef = this.dialog.open(DialogComponent, this.dialogConfig);
+        MessageBox.show(this.dialog, "Error", errorMsg, MessageBoxButton.Ok, "350px");
       }
     );
 
@@ -130,8 +119,7 @@ export class PatientUpdateComponent implements OnInit {
       }
       this.service.updateData(this.patientId, patient).subscribe(
         response => {
-          this.dialogConfig.data = { 'title': "Alert", 'option': 'close', 'message': 'Successfully updated the reord ' + this.patientId};
-          this.dialog.open(DialogComponent, this.dialogConfig);
+          MessageBox.show(this.dialog, "Alert", 'Successfully updated the reord ' + this.patientId, MessageBoxButton.Ok, "350px");
         },
         error => {
           let errorMsg = '';
@@ -141,14 +129,11 @@ export class PatientUpdateComponent implements OnInit {
             errorMsg = error.error;
           else
             errorMsg = error.message;
-          this.dialogConfig.data = { 'title': "Error", 'option': 'close', 'message': errorMsg };
-          this.dialog.open(DialogComponent, this.dialogConfig);
+          MessageBox.show(this.dialog, "Error", errorMsg, MessageBoxButton.Ok, "350px");
         }
       );
-    } else {
-      this.dialogConfig.data = { 'title': "Error", 'option': 'close', 'message': 'Some Input data are invalid' };
-      let dialogRef = this.dialog.open(DialogComponent, this.dialogConfig);
-    }
+    } else
+      MessageBox.show(this.dialog, "Error", 'Some Input data are invalid', MessageBoxButton.Ok, "350px");
   }
 
   onChange(event) {

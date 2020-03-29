@@ -3,7 +3,7 @@ import { PatientService } from '../../services/patient.service';
 import { Patient } from '../../model/patient';
 import { MatTableDataSource, MatSort, MatPaginator, MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
-import { DialogComponent } from 'src/app/shared/dialogs/dialog.component';
+import { MessageBoxButton, MessageBox } from 'src/app/shared/message-box';
 
 @Component({
   selector: 'app-patient-list',
@@ -30,7 +30,6 @@ export class PatientListComponent implements OnInit {
   pageSize: number = 10;
   pageSizeOptions: number[] = [5, 10, 25, 100];
 
-
   ngOnInit() {
 
     this.dataSource.paginator = this.paginator;
@@ -42,14 +41,6 @@ export class PatientListComponent implements OnInit {
       const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
       const transformedFilter = filter.trim().toLowerCase();
       return dataStr.indexOf(transformedFilter) !== -1;
-    }
-
-    this.dialogConfig = {
-      height: '200px',
-      width: '400px',
-      disableClose: true,
-      panelClass: 'custom-modalbox',
-      data: {}
     }
 
     this.getPatientList();
@@ -82,8 +73,7 @@ export class PatientListComponent implements OnInit {
           errorMsg = error.error;
         else
           errorMsg = error.message;
-        this.dialogConfig.data = { 'title': "Error", 'option': 'close', 'message': errorMsg };
-        this.dialog.open(DialogComponent, this.dialogConfig);
+        MessageBox.show(this.dialog, "Error", errorMsg, MessageBoxButton.Ok, "350px");
       }
     );
   }
@@ -99,32 +89,30 @@ export class PatientListComponent implements OnInit {
   }
 
   public redirectToDelete = (id: string) => {
-    this.dialogConfig.data = { 'title': "Confirm Action", 'option': 'yes/no', 'message': 'Do you want to delete the record ?' };
-    let dialogRef = this.dialog.open(DialogComponent, this.dialogConfig);
-    dialogRef.afterClosed().subscribe(dialogResult => {
-      if (dialogResult == true) {
-        this.service.deleteData(id).subscribe(
-          response => {
-            this.dialogConfig.data = { 'title': "Alert", 'option': 'close', 'message': 'Successfully deleted the reord ' + id };
-            let dialogRef = this.dialog.open(DialogComponent, this.dialogConfig);
-            dialogRef.afterClosed().subscribe(result => {
-              this.getPatientList();
-            });
-          },
-          error => {
-            let errorMsg = '';
-            if (typeof error.error.message !== 'undefined')
-              errorMsg = error.error.message;
-            else if (typeof error.error !== 'undefined')
-              errorMsg = error.error;
-            else
-              errorMsg = error.message;
-            this.dialogConfig.data = { 'title': "Error", 'option': 'close', 'message': errorMsg };
-            this.dialog.open(DialogComponent, this.dialogConfig);
-          }
-        );
-      }
-    });
+    MessageBox.show(this.dialog, "Confirm Action", 'Do you want to delete the record ?', MessageBoxButton.YesNo, "350px")
+      .subscribe(result => {
+        const dialogResult = (result === undefined) ? "none" : result.result;
+        if (dialogResult == "yes") {
+          this.service.deleteData(id).subscribe(
+            response => {
+              MessageBox.show(this.dialog, "Alert", 'Successfully deleted the reord ' + id, MessageBoxButton.Ok, "350px")
+                .subscribe(result => {
+                  this.getPatientList();
+                });
+            },
+            error => {
+              let errorMsg = '';
+              if (typeof error.error.message !== 'undefined')
+                errorMsg = error.error.message;
+              else if (typeof error.error !== 'undefined')
+                errorMsg = error.error;
+              else
+                errorMsg = error.message;
+              MessageBox.show(this.dialog, "Error", errorMsg, MessageBoxButton.Ok, "350px");
+            }
+          );
+        }
+      });
 
   }
 
@@ -140,4 +128,5 @@ export class PatientListComponent implements OnInit {
     }
     return search;
   }
+
 }

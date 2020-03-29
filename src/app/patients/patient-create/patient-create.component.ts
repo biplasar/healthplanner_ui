@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
-import { DialogComponent } from '../../shared/dialogs/dialog.component';
-import { ErrorHandlerService } from '../../shared/dialogs/error-handler.service';
 import { PatientService } from 'src/app/services/patient.service';
 import { Patient } from 'src/app/model/patient';
 import { PatientName } from 'src/app/model/patient_name';
 import { PostalAddress } from 'src/app/model/postal_address';
 import { GENDER, MARITAL_STATUS, DISEASE_TYPE } from 'src/app/constant';
+import { MessageBox, MessageBoxButton } from 'src/app/shared/message-box';
 
 @Component({
   selector: 'app-patient-create',
@@ -17,7 +16,6 @@ import { GENDER, MARITAL_STATUS, DISEASE_TYPE } from 'src/app/constant';
 export class PatientCreateComponent implements OnInit {
 
   public registerForm: FormGroup;
-  private dialogConfig;
   public genders = GENDER;
   public marital_status = MARITAL_STATUS;
   public disease_type = DISEASE_TYPE;
@@ -43,14 +41,6 @@ export class PatientCreateComponent implements OnInit {
       phone: new FormControl('', [Validators.required, Validators.maxLength(60)]),
       maritalStatus: new FormControl('', [Validators.required])
     });
-
-    this.dialogConfig = {
-      height: '200px',
-      width: '400px',
-      disableClose: true,
-      panelClass: 'custom-modalbox',
-      data: {}
-    }
 
   }
 
@@ -88,8 +78,7 @@ export class PatientCreateComponent implements OnInit {
       }
       this.service.saveData(patient).subscribe(
         response => {
-          this.dialogConfig.data = { 'title': "Alert", 'option': 'close', 'message': 'Successfully added the reord ' };
-          this.dialog.open(DialogComponent, this.dialogConfig);
+          MessageBox.show(this.dialog, "Alert", 'Successfully added the reord', MessageBoxButton.Ok, "350px")
           this.registerForm.reset();
         },
         error => {
@@ -100,14 +89,11 @@ export class PatientCreateComponent implements OnInit {
             errorMsg = error.error;
           else
             errorMsg = error.message;
-          this.dialogConfig.data = { 'title': "Error", 'option': 'close', 'message': errorMsg };
-          this.dialog.open(DialogComponent, this.dialogConfig);
+          MessageBox.show(this.dialog, "Error", errorMsg, MessageBoxButton.Ok, "350px");
         }
       );
-    } else {
-      this.dialogConfig.data = { 'title': "Error", 'option': 'close', 'message': 'Some Input data are invalid' };
-      this.dialog.open(DialogComponent, this.dialogConfig);
-    }
+    } else
+      MessageBox.show(this.dialog, "Error", 'Some Input data are invalid', MessageBoxButton.Ok, "350px");
   }
 
   onChange(event) {
