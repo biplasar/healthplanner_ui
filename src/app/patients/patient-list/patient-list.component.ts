@@ -66,14 +66,6 @@ export class PatientListComponent implements OnInit {
         this.dataSource.data = response.patients;
       },
       error => {
-        let errorMsg = '';
-        if (typeof error.error.message !== 'undefined')
-          errorMsg = error.error.message;
-        else if (typeof error.error !== 'undefined')
-          errorMsg = error.error;
-        else
-          errorMsg = error.message;
-        MessageBox.show(this.dialog, "Error", errorMsg, MessageBoxButton.Ok, "350px");
       }
     );
   }
@@ -101,14 +93,6 @@ export class PatientListComponent implements OnInit {
                 });
             },
             error => {
-              let errorMsg = '';
-              if (typeof error.error.message !== 'undefined')
-                errorMsg = error.error.message;
-              else if (typeof error.error !== 'undefined')
-                errorMsg = error.error;
-              else
-                errorMsg = error.message;
-              MessageBox.show(this.dialog, "Error", errorMsg, MessageBoxButton.Ok, "350px");
             }
           );
         }

@@ -5,8 +5,7 @@ import { MatDialog } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { PatientService } from 'src/app/services/patient.service';
 import { Patient } from 'src/app/model/patient';
-import { GENDER, MARITAL_STATUS, DISEASE_TYPE } from 'src/app/constant';
-import { MessageBox, MessageBoxButton } from 'src/app/shared/message-box';
+import { GENDER, MARITAL_STATUS, DISEASE_TYPE } from '../../shared/constant';
 
 @Component({
   selector: 'app-patient-details',
@@ -72,14 +71,6 @@ export class PatientDetailsComponent implements OnInit {
         }
       },
       error => {
-        let errorMsg = '';
-        if (typeof error.error.message !== 'undefined')
-          errorMsg = error.error.message;
-        else if (typeof error.error !== 'undefined')
-          errorMsg = error.error;
-        else
-          errorMsg = error.message;
-        MessageBox.show(this.dialog, "Error", errorMsg, MessageBoxButton.Ok, "350px");
       }
     );
   }

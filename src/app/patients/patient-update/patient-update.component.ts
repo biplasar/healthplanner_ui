@@ -7,7 +7,7 @@ import { PatientService } from 'src/app/services/patient.service';
 import { Patient } from 'src/app/model/patient';
 import { PatientName } from 'src/app/model/patient_name';
 import { PostalAddress } from 'src/app/model/postal_address';
-import { GENDER, MARITAL_STATUS, DISEASE_TYPE } from 'src/app/constant';
+import { GENDER, MARITAL_STATUS, DISEASE_TYPE } from '../../shared/constant';
 import { MessageBox, MessageBoxButton } from 'src/app/shared/message-box';
 
 @Component({
@@ -74,15 +74,6 @@ export class PatientUpdateComponent implements OnInit {
         }
       },
       error => {
-        this.registerForm.disable();
-        let errorMsg = '';
-        if (typeof error.error.message !== 'undefined')
-          errorMsg = error.error.message;
-        else if (typeof error.error !== 'undefined')
-          errorMsg = error.error;
-        else
-          errorMsg = error.message;
-        MessageBox.show(this.dialog, "Error", errorMsg, MessageBoxButton.Ok, "350px");
       }
     );
 
@@ -122,14 +113,6 @@ export class PatientUpdateComponent implements OnInit {
           MessageBox.show(this.dialog, "Alert", 'Successfully updated the reord ' + this.patientId, MessageBoxButton.Ok, "350px");
         },
         error => {
-          let errorMsg = '';
-          if (typeof error.error.message !== 'undefined')
-            errorMsg = error.error.message;
-          else if (typeof error.error !== 'undefined')
-            errorMsg = error.error;
-          else
-            errorMsg = error.message;
-          MessageBox.show(this.dialog, "Error", errorMsg, MessageBoxButton.Ok, "350px");
         }
       );
     } else

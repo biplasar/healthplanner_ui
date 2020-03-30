@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { API_URL } from '../constant';
+import { API_URL } from '../shared/constant';
 import { Patient } from '../model/patient';
 import { Observable } from 'rxjs';
 

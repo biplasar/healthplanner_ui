@@ -5,8 +5,9 @@ import { PatientService } from 'src/app/services/patient.service';
 import { Patient } from 'src/app/model/patient';
 import { PatientName } from 'src/app/model/patient_name';
 import { PostalAddress } from 'src/app/model/postal_address';
-import { GENDER, MARITAL_STATUS, DISEASE_TYPE } from 'src/app/constant';
+import { GENDER, MARITAL_STATUS, DISEASE_TYPE } from '../../shared/constant';
 import { MessageBox, MessageBoxButton } from 'src/app/shared/message-box';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-patient-create',
@@ -21,6 +22,7 @@ export class PatientCreateComponent implements OnInit {
   public disease_type = DISEASE_TYPE;
 
   constructor(
+    private router: Router,
     private dialog: MatDialog,
     private service: PatientService,
   ) { }
@@ -79,17 +81,12 @@ export class PatientCreateComponent implements OnInit {
       this.service.saveData(patient).subscribe(
         response => {
           MessageBox.show(this.dialog, "Alert", 'Successfully added the reord', MessageBoxButton.Ok, "350px")
-          this.registerForm.reset();
+            .subscribe(result => {
+              let url: string = `/home`;
+              this.router.navigate([url]);
+            });
         },
         error => {
-          let errorMsg = '';
-          if (typeof error.error.message !== 'undefined')
-            errorMsg = error.error.message;
-          else if (typeof error.error !== 'undefined')
-            errorMsg = error.error;
-          else
-            errorMsg = error.message;
-          MessageBox.show(this.dialog, "Error", errorMsg, MessageBoxButton.Ok, "350px");
         }
       );
     } else
