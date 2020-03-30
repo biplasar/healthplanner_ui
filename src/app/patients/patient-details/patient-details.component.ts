@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Location } from '@angular/common';
-import { MatDialog } from '@angular/material';
+import { Location, DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { PatientService } from 'src/app/services/patient.service';
 import { Patient } from 'src/app/model/patient';
@@ -17,8 +16,8 @@ export class PatientDetailsComponent implements OnInit {
   constructor(
     private activeRoute: ActivatedRoute,
     private service: PatientService,
-    private dialog: MatDialog,
-    private location: Location) {
+    private location: Location,
+    private datePipe: DatePipe) {
   }
 
   patient: Patient;
@@ -48,6 +47,7 @@ export class PatientDetailsComponent implements OnInit {
     let id: string = this.activeRoute.snapshot.params['id'];
     this.service.getDataById(id).subscribe(
       response => {
+        console.log(JSON.stringify(response));
         this.patient = response;
         this.registerForm = new FormGroup({
           firstName: new FormControl(this.patient.patientName.firstName),
@@ -58,7 +58,7 @@ export class PatientDetailsComponent implements OnInit {
           state: new FormControl(this.patient.postalAddress.state),
           zip: new FormControl(this.patient.postalAddress.zip),
           gender: new FormControl(this.patient.gender),
-          dateOfBirth: new FormControl(this.patient.dateOfBirth),
+          dateOfBirth: new FormControl(this.datePipe.transform(this.patient.dateOfBirth,'dd-MM-yyyy')),
           mailId: new FormControl(this.patient.mailId),
           phone: new FormControl(this.patient.phone),
           maritalStatus: new FormControl(this.patient.maritalStatus)

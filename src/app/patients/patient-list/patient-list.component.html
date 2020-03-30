@@ -30,7 +30,7 @@
     </ng-container>
     <ng-container matColumnDef="dateOfBirth">
         <th mat-header-cell *matHeaderCellDef mat-sort-header width="100px">Date of Birth</th>
-        <td mat-cell *matCellDef="let patient">{{patient.dateOfBirth}}</td>
+        <td mat-cell *matCellDef="let patient">{{patient.dateOfBirth | date:'dd-MM-yyyy'}}</td>
     </ng-container>
     <ng-container matColumnDef="mailId">
         <th mat-header-cell *matHeaderCellDef mat-sort-header width="200px">MailID</th>

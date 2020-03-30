@@ -9,6 +9,7 @@ import { PatientName } from 'src/app/model/patient_name';
 import { PostalAddress } from 'src/app/model/postal_address';
 import { GENDER, MARITAL_STATUS, DISEASE_TYPE } from '../../shared/constant';
 import { MessageBox, MessageBoxButton } from 'src/app/shared/message-box';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-patient-update',
@@ -62,7 +63,7 @@ export class PatientUpdateComponent implements OnInit {
           state: new FormControl(this.patient.postalAddress.state, [Validators.required, Validators.maxLength(50)]),
           zip: new FormControl(this.patient.postalAddress.zip, [Validators.required, Validators.maxLength(6)]),
           gender: new FormControl(this.patient.gender, [Validators.required]),
-          dateOfBirth: new FormControl(this.patient.dateOfBirth, [Validators.required]),
+          dateOfBirth: new FormControl(moment(this.patient.dateOfBirth).toDate(), [Validators.required]),
           mailId: new FormControl(this.patient.mailId, [Validators.required, Validators.maxLength(60)]),
           phone: new FormControl(this.patient.phone, [Validators.required, Validators.maxLength(60)]),
           maritalStatus: new FormControl(this.patient.maritalStatus, [Validators.required])
