@@ -2,6 +2,11 @@ import { HttpHeaders } from '@angular/common/http';
 
 export const API_URL = 'https://healthplanner-biplasar-in.osc-sbx-exp-ap-15768375-f72ef11f3ab089a8c677044eb28292cd-0001.us-east.containers.appdomain.cloud';
 
+export const GET_ALL_PATIENT_URL =  "healthplanner/get/patient";
+export const CREATE_PATIENT_URL  =  "healthplanner/create/patient";
+export const UPDATE_PATIENT_URL  =  "healthplanner/update/patient" ;
+export const DELETE_PATIENT_URL  =  "healthplanner/delete/patient";
+
 export const GENDER: Array<any> = [
     { option: "Male", value: "Male", checked: false },
     { option: "Female", value: "Female", checked: false }
