@@ -56,7 +56,7 @@ export class PatientUpdateComponent implements OnInit {
         this.patient = response;
         this.registerForm = new FormGroup({
           firstName: new FormControl(this.patient.patientName.firstName, [Validators.required, Validators.maxLength(50)]),
-          lastName: new FormControl(this.patient.patientName.lastName, [Validators.required, Validators.maxLength(60)]),
+          lastName: new FormControl(this.patient.patientName.lastName, [Validators.required, Validators.maxLength(50)]),
           line1: new FormControl(this.patient.postalAddress.line1, [Validators.required, Validators.maxLength(150)]),
           line2: new FormControl(this.patient.postalAddress.line2, [Validators.required, Validators.maxLength(150)]),
           city: new FormControl(this.patient.postalAddress.city, [Validators.required, Validators.maxLength(50)]),
@@ -64,7 +64,7 @@ export class PatientUpdateComponent implements OnInit {
           zip: new FormControl(this.patient.postalAddress.zip, [Validators.required, Validators.maxLength(6)]),
           gender: new FormControl(this.patient.gender, [Validators.required]),
           dateOfBirth: new FormControl(moment(this.patient.dateOfBirth).toDate(), [Validators.required]),
-          mailId: new FormControl(this.patient.mailId, [Validators.required, Validators.maxLength(60)]),
+          mailId: new FormControl(this.patient.mailId, [Validators.required, Validators.maxLength(50), Validators.email]),
           phone: new FormControl(this.patient.phone, [Validators.required, Validators.maxLength(60)]),
           maritalStatus: new FormControl(this.patient.maritalStatus, [Validators.required])
         });

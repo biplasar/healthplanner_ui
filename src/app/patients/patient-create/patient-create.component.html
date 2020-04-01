@@ -82,9 +82,10 @@
         <div flex fxLayoutGap="30px">
           <mat-form-field>
             <input matInput type="text" placeholder="Email" formControlName="mailId" id="mailId">
-            <mat-hint align="left">Not more then 60 characters long.</mat-hint>
+            <mat-hint align="left">Not more then 50 characters long.</mat-hint>
             <mat-error *ngIf="hasError('mailId', 'required')">Mailid is required</mat-error>
-            <mat-error *ngIf="hasError('mailId', 'maxlength')">You have more than 60 characters</mat-error>
+            <mat-error *ngIf="hasError('mailId', 'maxlength')">You have more than 50 characters</mat-error>
+			<mat-error *ngIf="hasError('mailId', 'email')">Invalid email address</mat-error>
           </mat-form-field>
           <mat-form-field>
             <input matInput type="text" placeholder="PhoneNo" formControlName="phone" id="phone">

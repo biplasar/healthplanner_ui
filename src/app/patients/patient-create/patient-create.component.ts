@@ -31,7 +31,7 @@ export class PatientCreateComponent implements OnInit {
 
     this.registerForm = new FormGroup({
       firstName: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-      lastName: new FormControl('', [Validators.required, Validators.maxLength(60)]),
+      lastName: new FormControl('', [Validators.required, Validators.maxLength(50)]),
       line1: new FormControl('', [Validators.required, Validators.maxLength(150)]),
       line2: new FormControl('', [Validators.required, Validators.maxLength(150)]),
       city: new FormControl('', [Validators.required, Validators.maxLength(50)]),
@@ -39,7 +39,7 @@ export class PatientCreateComponent implements OnInit {
       zip: new FormControl('', [Validators.required, Validators.maxLength(6)]),
       gender: new FormControl('', [Validators.required]),
       dateOfBirth: new FormControl('', [Validators.required]),
-      mailId: new FormControl('', [Validators.required, Validators.maxLength(60)]),
+      mailId: new FormControl('', [Validators.required, Validators.maxLength(50), Validators.email]),
       phone: new FormControl('', [Validators.required, Validators.maxLength(60)]),
       maritalStatus: new FormControl('', [Validators.required])
     });
