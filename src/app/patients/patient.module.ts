@@ -8,7 +8,6 @@ import { PatientRoutingModule } from './patient-routing.module';
 import { PatientDetailsComponent } from './patient-details/patient-details.component';
 import { PatientCreateComponent } from './patient-create/patient-create.component';
 import { PatientUpdateComponent } from './patient-update/patient-update.component';
-//import { PatientDeleteComponent } from './patient-delete/patient-delete.component';
 
 @NgModule({
   imports: [
@@ -22,7 +21,6 @@ import { PatientUpdateComponent } from './patient-update/patient-update.componen
     PatientDetailsComponent, 
     PatientCreateComponent, 
     PatientUpdateComponent, 
-    //PatientDeleteComponent
   ]
 })
 export class PatientModule { }

@@ -12,4 +12,14 @@ export class Patient {
     phone: String;
     maritalStatus: String;
     medHistory: String[];
+    activity: String;
+    tobacoUse: String;
+    alchoholUse: String;
+    caffineUse: String;
+    allergies: String;
+    allergyFrom: String[];
+    diet: String;
+    height: number;
+    weight: number;
+    bmi: number;
 }

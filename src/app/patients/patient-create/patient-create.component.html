@@ -85,7 +85,7 @@
             <mat-hint align="left">Not more then 50 characters long.</mat-hint>
             <mat-error *ngIf="hasError('mailId', 'required')">Mailid is required</mat-error>
             <mat-error *ngIf="hasError('mailId', 'maxlength')">You have more than 50 characters</mat-error>
-			<mat-error *ngIf="hasError('mailId', 'email')">Invalid email address</mat-error>
+            <mat-error *ngIf="hasError('mailId', 'email')">Invalid email address</mat-error>
           </mat-form-field>
           <mat-form-field>
             <input matInput type="text" placeholder="PhoneNo" formControlName="phone" id="phone">
@@ -110,18 +110,118 @@
         <div flex fxLayoutGap="30px">
           <mat-label>Medical History</mat-label>
           <ng-container *ngFor="let item of disease_type; let i = index">
-            <mat-checkbox (change)="onChange($event)" [value]="item.name">{{item.name}}
+            <mat-checkbox (change)="onChange1($event)" [value]="item.name">{{item.name}}
             </mat-checkbox>
           </ng-container>
           <br>
           <mat-hint align="left" class="mat-hint-style">Medical History is required</mat-hint>
+        </div>
+        <br>
+        <div flex fxLayoutGap="30px">
+          <mat-label>Exercise Activity</mat-label>
+          <mat-radio-group formControlName="activity" id="activity">
+            <mat-radio-button *ngFor="let item of excercise_type" [value]="item.value">
+              {{item.option}}
+              &nbsp;
+            </mat-radio-button>
+          </mat-radio-group>
+          <br>
+          <mat-hint align="left" class="mat-hint-style">Exercise Activity is required</mat-hint>
+        </div>
+        <br>
+        <div flex fxLayoutGap="56px">
+          <mat-label>Tobaco Use</mat-label>
+          <mat-radio-group formControlName="tobacoUse" id="tobacoUse">
+            <mat-radio-button *ngFor="let item of tobaco_use_type" [value]="item.value">
+              {{item.option}}
+              &nbsp;
+            </mat-radio-button>
+          </mat-radio-group>
+          <br>
+          <mat-hint align="left" class="mat-hint-style">Tobaco Use is required</mat-hint>
+        </div>
+        <br>
+        <div flex fxLayoutGap="56px">
+          <mat-label>Aclohol Use</mat-label>
+          <mat-radio-group formControlName="alchoholUse" id="alchoholUse">
+            <mat-radio-button *ngFor="let item of alchohol_use_type" [value]="item.value">
+              {{item.option}}
+              &nbsp;
+            </mat-radio-button>
+          </mat-radio-group>
+          <br>
+          <mat-hint align="left" class="mat-hint-style">Aclohol Use is required</mat-hint>
+        </div>
+        <br>
+        <div flex fxLayoutGap="50px">
+          <mat-label>Caffeine Use</mat-label>
+          <mat-radio-group formControlName="caffineUse" id="caffineUse">
+            <mat-radio-button *ngFor="let item of caffine_use_type" [value]="item.value">
+              {{item.option}}
+              &nbsp;
+            </mat-radio-button>
+          </mat-radio-group>
+          <br>
+          <mat-hint align="left" class="mat-hint-style">Caffeine Use is required</mat-hint>
+        </div>
+        <br>
+        <div flex fxLayoutGap="30px">
+          <mat-label>Do you suffer from any known allergies</mat-label>
+          <mat-radio-group formControlName="allergies" id="allergies">
+            <mat-radio-button *ngFor="let item of alergy_yes_no" [value]="item.value" (change)="showAlergyList($event)">
+              {{item.option}}
+              &nbsp;
+            </mat-radio-button>
+          </mat-radio-group>
+          <br>
+          <mat-hint align="left" class="mat-hint-style">Please select suffering from allergies</mat-hint>
+        </div>
+        <br>
+        <div flex fxLayoutGap="30px" *ngIf="suffering == true">
+          <mat-label>Causes of allergic</mat-label>
+          <ng-container *ngFor="let item of alergy_type; let i = index">
+            <mat-checkbox (change)="onChange2($event)" [value]="item.name">{{item.name}}
+            </mat-checkbox>
+          </ng-container>
+          <br>
+          <mat-hint align="left" class="mat-hint-style">Causes of allergic is required</mat-hint>
+        </div>
+        <br *ngIf="suffering == true">
+        <div flex fxLayoutGap="30px">
+          <mat-label>Diet</mat-label>
+          <mat-radio-group formControlName="diet" id="diet">
+            <mat-radio-button *ngFor="let item of diet_type" [value]="item.value">
+              {{item.option}}
+              &nbsp;
+            </mat-radio-button>
+          </mat-radio-group>
+          <br>
+          <mat-hint align="left" class="mat-hint-style">Diet is required</mat-hint>
+        </div>
+        <br>
+        <div flex fxLayoutGap="30px">
+          <mat-label><b>Patient Height & Weight</b></mat-label><br>
+          <mat-form-field>
+            <input matInput type="text" placeholder="Height in METER" formControlName="height" id="height">
+            <mat-hint align="left">Not more then 10 characters long.</mat-hint>
+            <mat-error *ngIf="hasError('height', 'required')">Height is required</mat-error>
+            <mat-error *ngIf="hasError('height', 'maxlength')">You have more than 10 characters</mat-error>
+            <mat-error *ngIf="hasError('height', 'pattern')">Height should be number</mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput type="text" placeholder="Weight in KG" formControlName="weight" id="weight">
+            <mat-hint align="left">Not more then 10 characters long.</mat-hint>
+            <mat-error *ngIf="hasError('weight', 'required')">Weight is required</mat-error>
+            <mat-error *ngIf="hasError('weight', 'maxlength')">You have more than 10 characters</mat-error>
+            <mat-error *ngIf="hasError('weight', 'pattern')">Weight should be number</mat-error>
+          </mat-form-field>
         </div>
 
       </mat-card-content>
 
       <mat-card-actions style="text-align: center;">
         <button mat-raised-button color="primary" [disabled]="!registerForm.valid">Register</button>
-        <button type="button" mat-raised-button color="warn" (click)="loginForm.reset()">Reset</button>
+        <button type="button" mat-raised-button color="warn" (click)="registerForm.reset()">Reset</button>
       </mat-card-actions>
 
     </form>
