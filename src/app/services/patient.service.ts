@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+<<<<<<< HEAD
 import { API_URL, GET_ALL_PATIENT_URL, CREATE_PATIENT_URL, UPDATE_PATIENT_URL, DELETE_PATIENT_URL } from '../shared/constant';
+=======
+import { API_URL, GET_ALL_PATIENT_URL, CREATE_PATIENT_URL, UPDATE_PATIENT_URL, DELETE_PATIENT_URL} from '../shared/constant';
+>>>>>>> b82123258a646156c7ec85a98a01592fd18a58d7
 import { Patient } from '../model/patient';
 import { Observable } from 'rxjs';
 

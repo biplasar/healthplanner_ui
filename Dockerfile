@@ -1,23 +1,38 @@
-# Stage 0, "build-stage", based on Node.js, to build and compile the frontend
-FROM tiangolo/node-frontend:10 as build-stage
+# Stage 1
+FROM node:12.16-alpine as node
 
-WORKDIR /app
+WORKDIR /usr/src/app
 
-COPY package*.json /app/
+COPY package*.json ./
 
 RUN npm install
 
-COPY ./ /app/
+COPY . .
 
-ARG configuration=production
+RUN npm run build
 
-RUN npm run build -- --output-path=./dist/out --configuration $configuration
+RUN chgrp -R 0 /usr/src/app/ && \
+	chmod -R g=u /usr/src/app/
 
+# Stage 2
+FROM nginx:1.13.12-alpine
 
-# Stage 1, based on Nginx, to have only the compiled app, ready for production with Nginx
-FROM nginx:1.15
+RUN rm -rf /etc/nginx/nginx.conf.default && rm -rf /etc/nginx/conf.d/default.conf
+COPY nginx/nginx.conf /etc/nginx/nginx.conf
+COPY nginx/nginx.conf /etc/nginx/conf.d/nginx.conf
 
-COPY --from=build-stage /app/dist/out/ /usr/share/nginx/html
+## Remove default nginx index page
+RUN rm -rf /usr/share/nginx/html/*
 
-# Copy the default nginx.conf provided by tiangolo/node-frontend
-COPY --from=build-stage /nginx.conf /etc/nginx/conf.d/default.conf
+# Copy from the stahg 1
+COPY --from=node /usr/src/app/dist/patientInformationApp /usr/share/nginx/html
+
+RUN chgrp -R 0 /var/cache/ /var/log/ /var/run/ && \
+    chmod -R g=u /var/cache/ /var/log/ /var/run/
+
+EXPOSE 8080
+
+LABEL io.openshift.expose-services="8080:http"
+
+USER 1001
+ENTRYPOINT ["nginx", "-g", "daemon off;"]

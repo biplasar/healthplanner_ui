@@ -10,6 +10,11 @@ export const DELETE_PATIENT_URL  =  "user/delete";
 //export const UPDATE_PATIENT_URL  =  "healthplanner/update/patient" ;
 //export const DELETE_PATIENT_URL  =  "healthplanner/delete/patient";
 
+export const GET_ALL_PATIENT_URL =  "healthplanner/get/patient";
+export const CREATE_PATIENT_URL  =  "healthplanner/create/patient";
+export const UPDATE_PATIENT_URL  =  "healthplanner/update/patient" ;
+export const DELETE_PATIENT_URL  =  "healthplanner/delete/patient";
+
 export const GENDER: Array<any> = [
     { option: "Male", value: "Male", checked: false },
     { option: "Female", value: "Female", checked: false }
