@@ -18,6 +18,7 @@ import * as moment from 'moment';
 })
 export class PatientUpdateComponent implements OnInit {
 
+  tomorrow = new Date(); 
   public patientId: String;
   patient: Patient;
   public registerForm: FormGroup;

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpResponse, HttpErrorResponse, HttpResponseBase } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/catch';
 import { Router } from '@angular/router';
 import { MessageBox, MessageBoxButton } from '../shared/message-box';
 import { MatDialog } from '@angular/material';
@@ -20,20 +21,15 @@ export class ResponseInterceptor implements HttpInterceptor {
         return next.handle(request).do((event: HttpEvent<any>) => {
             if (event instanceof HttpResponse) {
             }
-        }, error => {
+        }, (err: any) => {
             let errorMsg = '';
-            if (error.error instanceof ErrorEvent)
-                errorMsg = "An error occurred : ", error.error.message;
-            else
-                errorMsg = `Backend returned code ${error.status}, ` + `body was: ${error.error}`;
-            /*
-            if (typeof err.message !== 'undefined')
-                errorMsg = err.message;
-            else if (typeof err.error !== 'undefined')
-                errorMsg = err.error;
-            else
+            if (typeof err.error !== 'undefined')
                 errorMsg = err.error.message;
-                */
+            else if (typeof err.message !== 'undefined')
+                errorMsg = err.message;
+            else
+                errorMsg = err.error;
+
             MessageBox.show(this.dialog, "Error", errorMsg, MessageBoxButton.Ok, "350px");
 
         });

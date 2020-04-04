@@ -71,7 +71,7 @@
         </div>
         <div>
           <mat-form-field>
-            <input matInput [matDatepicker]="picker" placeholder="Select Date of Birth" formControlName="dateOfBirth"
+            <input matInput [matDatepicker]="picker" [max]="tomorrow" placeholder="Select Date of Birth" formControlName="dateOfBirth"
               id="dateOfBirth" readonly (click)="picker.open()">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>

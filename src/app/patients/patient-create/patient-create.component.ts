@@ -17,6 +17,7 @@ import { Router } from '@angular/router';
 })
 export class PatientCreateComponent implements OnInit {
 
+  tomorrow = new Date(); 
   public registerForm: FormGroup;
   public genders = GENDER;
   public marital_status = MARITAL_STATUS;
