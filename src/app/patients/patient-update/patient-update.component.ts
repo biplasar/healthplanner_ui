@@ -74,23 +74,23 @@ export class PatientUpdateComponent implements OnInit {
           firstName: new FormControl(this.patient.patientName.firstName, [Validators.required, Validators.maxLength(50)]),
           lastName: new FormControl(this.patient.patientName.lastName, [Validators.required, Validators.maxLength(50)]),
           line1: new FormControl(this.patient.postalAddress.line1, [Validators.required, Validators.maxLength(150)]),
-          line2: new FormControl(this.patient.postalAddress.line2, [Validators.required, Validators.maxLength(150)]),
+          line2: new FormControl(this.patient.postalAddress.line2, [Validators.maxLength(150)]),
           city: new FormControl(this.patient.postalAddress.city, [Validators.required, Validators.maxLength(50)]),
           state: new FormControl(this.patient.postalAddress.state, [Validators.required, Validators.maxLength(50)]),
-          zip: new FormControl(this.patient.postalAddress.zip, [Validators.required, Validators.maxLength(6)]),
+          zip: new FormControl(this.patient.postalAddress.zip, [Validators.required, Validators.maxLength(6), Validators.pattern("[0-9]{6}")]),
           gender: new FormControl(this.patient.gender, [Validators.required]),
           dateOfBirth: new FormControl(moment(this.patient.dateOfBirth).toDate(), [Validators.required]),
           mailId: new FormControl(this.patient.mailId, [Validators.required, Validators.maxLength(50), Validators.email]),
-          phone: new FormControl(this.patient.phone, [Validators.required, Validators.maxLength(60)]),
+          phone: new FormControl(this.patient.phone, [Validators.required, Validators.maxLength(10), Validators.pattern("[0-9]{10}")]),
           maritalStatus: new FormControl(this.patient.maritalStatus, [Validators.required]),
-          activity: new FormControl('', [Validators.required]),
-          tobacoUse: new FormControl('', [Validators.required]),
-          alchoholUse: new FormControl('', [Validators.required]),
-          caffineUse: new FormControl('', [Validators.required]),
-          allergies: new FormControl('', [Validators.required]),
-          diet: new FormControl('', [Validators.required]),
-          height: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.pattern('^[0-9]+(.[0-9]{0,2})?$')]),
-          weight: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.pattern('^[0-9]+(.[0-9]{0,2})?$')])
+          activity: new FormControl(this.patient.activity, [Validators.required]),
+          tobacoUse: new FormControl(this.patient.tobacoUse, [Validators.required]),
+          alchoholUse: new FormControl(this.patient.alchoholUse, [Validators.required]),
+          caffineUse: new FormControl(this.patient.caffineUse, [Validators.required]),
+          allergies: new FormControl(this.patient.allergies, [Validators.required]),
+          diet: new FormControl(this.patient.diet, [Validators.required]),
+          height: new FormControl(this.patient.height, [Validators.required, Validators.maxLength(10), Validators.pattern('^[0-9]+(.[0-9]{0,2})?$')]),
+          weight: new FormControl(this.patient.weight, [Validators.required, Validators.maxLength(10), Validators.pattern('^[0-9]+(.[0-9]{0,2})?$')])
         });
         if (this.patient.allergies == "Yes")
           this.suffering = true;
@@ -99,8 +99,8 @@ export class PatientUpdateComponent implements OnInit {
             this.disease_type[i].checked = true;
           }
         }
-        for (var i = 0; i < this.alergy_type.length && this.patient.allergyFrom != undefined; i++) {
-          if (this.patient.allergyFrom.indexOf(this.alergy_type[i].name) != -1) {
+        for (var i = 0; i < this.alergy_type.length && this.patient.allergicFrom != undefined; i++) {
+          if (this.patient.allergicFrom.indexOf(this.alergy_type[i].name) != -1) {
             this.alergy_type[i].checked = true;
           }
         }
@@ -145,11 +145,11 @@ export class PatientUpdateComponent implements OnInit {
       patient.alchoholUse = registerFormValue.alchoholUse;
       patient.caffineUse = registerFormValue.caffineUse;
       patient.allergies = registerFormValue.allergies;
-      patient.allergyFrom = [];
+      patient.allergicFrom = [];
       if (this.suffering) {
         for (var i = 0; i < this.alergy_type.length; i++) {
           if (this.alergy_type[i].checked)
-            patient.allergyFrom.push(this.alergy_type[i].name);
+            patient.allergicFrom.push(this.alergy_type[i].name);
         }
       }
       patient.diet = registerFormValue.diet;
@@ -196,12 +196,12 @@ export class PatientUpdateComponent implements OnInit {
   }
 
   onChange2(event) {
-    for (var i = 0; i < this.excercise_type.length; i++) {
-      if (this.excercise_type[i].name == event.source.value) {
+    for (var i = 0; i < this.alergy_type.length; i++) {
+      if (this.alergy_type[i].name == event.source.value) {
         if (event.checked)
-          this.excercise_type[i].checked = true;
+          this.alergy_type[i].checked = true;
         else
-          this.excercise_type[i].checked = false;
+          this.alergy_type[i].checked = false;
         break;
       }
     }

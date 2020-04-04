@@ -34,7 +34,6 @@
           <mat-form-field>
             <input matInput type="text" placeholder="Line2" formControlName="line2" id="line2">
             <mat-hint align="left">Not more then 150 characters long.</mat-hint>
-            <mat-error *ngIf="hasError('line2', 'required')">Address Line 2 is required</mat-error>
             <mat-error *ngIf="hasError('line2', 'maxlength')">You have more than 150 characters</mat-error>
           </mat-form-field>
           <br>
@@ -55,6 +54,7 @@
             <mat-hint align="left">Not more then 6 characters long.</mat-hint>
             <mat-error *ngIf="hasError('zip', 'required')">Zip is required</mat-error>
             <mat-error *ngIf="hasError('zip', 'maxlength')">You have more than 6 characters</mat-error>
+            <mat-error *ngIf="hasError('zip', 'pattern')">Zip should be number</mat-error>
           </mat-form-field>
         </div>
         <br>
@@ -89,9 +89,10 @@
           </mat-form-field>
           <mat-form-field>
             <input matInput type="text" placeholder="PhoneNo" formControlName="phone" id="phone">
-            <mat-hint align="left">Not more then 6 characters long.</mat-hint>
+            <mat-hint align="left">Not more then 10 characters long.</mat-hint>
             <mat-error *ngIf="hasError('phone', 'required')">Phone Number is required</mat-error>
             <mat-error *ngIf="hasError('phone', 'maxlength')">You have more than 10 characters</mat-error>
+            <mat-error *ngIf="hasError('phone', 'pattern')">Phone Number should be number</mat-error>
           </mat-form-field>
         </div>
         <br>
@@ -221,7 +222,7 @@
 
       <mat-card-actions style="text-align: center;">
         <button mat-raised-button color="primary" [disabled]="!registerForm.valid">Register</button>
-        <button type="button" mat-raised-button color="warn" (click)="registerForm.reset()">Reset</button>
+        <button type="button" mat-raised-button color="warn" (click)="onCancel()">Cancel</button>
       </mat-card-actions>
 
     </form>

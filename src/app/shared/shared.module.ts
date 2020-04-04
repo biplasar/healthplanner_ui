@@ -24,7 +24,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
   providers: [
     DatePipe,
     DecimalPipe,
-    { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },
+    //{ provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ResponseInterceptor, multi: true },
   ],
   entryComponents: [

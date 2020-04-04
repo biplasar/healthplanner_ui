@@ -1,15 +1,10 @@
-export const API_URL = 'https://healthplanner-biplasar-in.osc-sbx-exp-ap-15768375-f72ef11f3ab089a8c677044eb28292cd-0001.us-east.containers.appdomain.cloud';
-//export const API_URL = 'http://localhost:8080';
+//export const API_URL = 'https://healthplanner-biplasar-in.osc-sbx-exp-ap-15768375-f72ef11f3ab089a8c677044eb28292cd-0001.us-east.containers.appdomain.cloud';
+export const API_URL = 'http://localhost:8080';
 
-export const GET_ALL_PATIENT_URL =  "user/get";
-export const CREATE_PATIENT_URL  =  "user/create";
-export const UPDATE_PATIENT_URL  =  "user/update" ;
-export const DELETE_PATIENT_URL  =  "user/delete";
-//export const GET_ALL_PATIENT_URL =  "healthplanner/get/patient";
-//export const CREATE_PATIENT_URL  =  "healthplanner/create/patient";
-//export const UPDATE_PATIENT_URL  =  "healthplanner/update/patient" ;
-//export const DELETE_PATIENT_URL  =  "healthplanner/delete/patient";
-
+//export const GET_ALL_PATIENT_URL =  "user/get";
+//export const CREATE_PATIENT_URL  =  "user/create";
+//export const UPDATE_PATIENT_URL  =  "user/update" ;
+//export const DELETE_PATIENT_URL  =  "user/delete";
 export const GET_ALL_PATIENT_URL =  "healthplanner/get/patient";
 export const CREATE_PATIENT_URL  =  "healthplanner/create/patient";
 export const UPDATE_PATIENT_URL  =  "healthplanner/update/patient" ;

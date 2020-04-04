@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Location } from '@angular/common';
 import { MatDialog } from '@angular/material';
 import { PatientService } from 'src/app/services/patient.service';
 import { Patient } from 'src/app/model/patient';
@@ -33,6 +34,7 @@ export class PatientCreateComponent implements OnInit {
     private router: Router,
     private dialog: MatDialog,
     private service: PatientService,
+    private location: Location
   ) { }
 
   ngOnInit() {
@@ -41,14 +43,14 @@ export class PatientCreateComponent implements OnInit {
       firstName: new FormControl('', [Validators.required, Validators.maxLength(50)]),
       lastName: new FormControl('', [Validators.required, Validators.maxLength(50)]),
       line1: new FormControl('', [Validators.required, Validators.maxLength(150)]),
-      line2: new FormControl('', [Validators.required, Validators.maxLength(150)]),
+      line2: new FormControl('', [Validators.maxLength(150)]),
       city: new FormControl('', [Validators.required, Validators.maxLength(50)]),
       state: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-      zip: new FormControl('', [Validators.required, Validators.maxLength(6)]),
+      zip: new FormControl('', [Validators.required, Validators.maxLength(6), Validators.pattern("[0-9]{6}")]),
       gender: new FormControl('', [Validators.required]),
       dateOfBirth: new FormControl('', [Validators.required]),
       mailId: new FormControl('', [Validators.required, Validators.maxLength(50), Validators.email]),
-      phone: new FormControl('', [Validators.required, Validators.maxLength(60)]),
+      phone: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.pattern("[0-9]{10}")]),
       maritalStatus: new FormControl('', [Validators.required]),
       activity: new FormControl('', [Validators.required]),
       tobacoUse: new FormControl('', [Validators.required]),
@@ -64,10 +66,6 @@ export class PatientCreateComponent implements OnInit {
 
   public hasError(controlName: string, errorName: string) {
     return this.registerForm.controls[controlName].hasError(errorName);
-  }
-
-  public onCancel() {
-    //this.location.back();
   }
 
   public register(registerFormValue) {
@@ -99,10 +97,10 @@ export class PatientCreateComponent implements OnInit {
       patient.alchoholUse = registerFormValue.alchoholUse;
       patient.caffineUse = registerFormValue.caffineUse;
       patient.allergies = registerFormValue.allergies;
-      patient.allergyFrom = [];
+      patient.allergicFrom = [];
       for (var i = 0; i < this.alergy_type.length; i++) {
         if (this.alergy_type[i].checked)
-          patient.allergyFrom.push(this.alergy_type[i].name);
+          patient.allergicFrom.push(this.alergy_type[i].name);
       }
       patient.diet = registerFormValue.diet;
       patient.height = registerFormValue.height;
@@ -123,6 +121,10 @@ export class PatientCreateComponent implements OnInit {
       MessageBox.show(this.dialog, "Error", 'Some Input data are invalid', MessageBoxButton.Ok, "350px");
   }
 
+  onCancel() {
+    this.location.back();
+  }
+
   onChange1(event) {
     for (var i = 0; i < this.disease_type.length; i++) {
       if (this.disease_type[i].name == event.source.value) {
@@ -136,12 +138,12 @@ export class PatientCreateComponent implements OnInit {
   }
 
   onChange2(event) {
-    for (var i = 0; i < this.excercise_type.length; i++) {
-      if (this.excercise_type[i].name == event.source.value) {
+    for (var i = 0; i < this.alergy_type.length; i++) {
+      if (this.alergy_type[i].name == event.source.value) {
         if (event.checked)
-          this.excercise_type[i].checked = true;
+          this.alergy_type[i].checked = true;
         else
-          this.excercise_type[i].checked = false;
+          this.alergy_type[i].checked = false;
         break;
       }
     }

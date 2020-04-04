@@ -88,7 +88,7 @@ export class PatientDetailsComponent implements OnInit {
           diet: new FormControl(this.patient.diet),
           height: new FormControl(this.patient.height),
           weight: new FormControl(this.patient.weight),
-          bmi: new FormControl(this.decimalPipe.transform(this.patient.bmi, '1.2'))
+          bmi: new FormControl(this.decimalPipe.transform(this.patient.bmi, '1.2-2'))
         });
         this.registerForm.disable();
         if (this.patient.allergies == "Yes")
@@ -98,8 +98,8 @@ export class PatientDetailsComponent implements OnInit {
             this.disease_type[i].checked = true;
           }
         }
-        for (var i = 0; i < this.alergy_type.length && this.patient.allergyFrom != undefined; i++) {
-          if (this.patient.allergyFrom.indexOf(this.alergy_type[i].name) != -1) {
+        for (var i = 0; i < this.alergy_type.length && this.patient.allergicFrom != undefined; i++) {
+          if (this.patient.allergicFrom.indexOf(this.alergy_type[i].name) != -1) {
             this.alergy_type[i].checked = true;
           }
         }

@@ -17,7 +17,7 @@ export class Patient {
     alchoholUse: String;
     caffineUse: String;
     allergies: String;
-    allergyFrom: String[];
+    allergicFrom: String[];
     diet: String;
     height: number;
     weight: number;

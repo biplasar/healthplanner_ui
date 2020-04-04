@@ -20,14 +20,20 @@ export class ResponseInterceptor implements HttpInterceptor {
         return next.handle(request).do((event: HttpEvent<any>) => {
             if (event instanceof HttpResponse) {
             }
-        }, (err: any) => {
+        }, error => {
             let errorMsg = '';
+            if (error.error instanceof ErrorEvent)
+                errorMsg = "An error occurred : ", error.error.message;
+            else
+                errorMsg = `Backend returned code ${error.status}, ` + `body was: ${error.error}`;
+            /*
             if (typeof err.message !== 'undefined')
                 errorMsg = err.message;
             else if (typeof err.error !== 'undefined')
                 errorMsg = err.error;
             else
                 errorMsg = err.error.message;
+                */
             MessageBox.show(this.dialog, "Error", errorMsg, MessageBoxButton.Ok, "350px");
 
         });
